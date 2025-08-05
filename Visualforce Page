@@ -1,0 +1,37 @@
+<apex:page controller="BookController">
+    <apex:form>
+        <apex:pageMessages />
+
+        <apex:pageBlock title="Add New Book">
+            <apex:pageBlockSection columns="2">
+                <apex:inputField value="{!newBook.Name}" required="true" />
+                <apex:inputField value="{!newBook.Price__c}" required="true" />
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons>
+                <apex:commandButton action="{!saveBook}" value="Save Book" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+
+        <apex:outputPanel rendered="{!isDuplicate}">
+            <apex:pageBlock title="Matching Book Found">
+                <apex:pageBlockSection columns="2">
+                    <apex:outputField value="{!existingBook.Name}" label="Book Name"/>
+                    <apex:outputField value="{!existingBook.Price__c}" label="Price"/>
+                    <apex:outputField value="{!existingBook.CreatedBy.Name}" label="Created By"/>
+                    <apex:outputField value="{!existingBook.LastModifiedBy.Name}" label="Last Modified By"/>
+                    <apex:outputField value="{!existingBook.Owner.Name}" label="Owner"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:outputPanel>
+
+        <apex:pageBlock title="Book List">
+            <apex:pageBlockTable value="{!books}" var="b">
+                <apex:column value="{!b.Name}" headerValue="Book Name"/>
+                <apex:column value="{!b.Price__c}" headerValue="Price"/>
+                <apex:column value="{!b.CreatedBy.Name}" headerValue="Created By"/>
+                <apex:column value="{!b.LastModifiedBy.Name}" headerValue="Last Modified By"/>
+                <apex:column value="{!b.Owner.Name}" headerValue="Owner"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
